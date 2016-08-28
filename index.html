@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>React-side-bar by mschez</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">React-side-bar</h1>
+      <h2 class="project-tagline">React Side Bar Component</h2>
+      <a href="https://github.com/mschez/react-side-bar" class="btn">View on GitHub</a>
+      <a href="https://github.com/mschez/react-side-bar/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mschez/react-side-bar/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="react-sidebar-component" class="anchor" href="#react-sidebar-component" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>React Sidebar Component</h1>
+
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=mschezes%40gmail%2ecom&amp;lc=ES&amp;item_name=Miguel%20S%c3%a1nchez&amp;item_number=github&amp;no_note=0&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHostedGuest"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate"></a> <a href="http://badge.fury.io/js/react-side-bar"><img src="https://img.shields.io/npm/v/react-side-bar.svg?" alt="npm"></a> <a href=""><img src="https://img.shields.io/npm/dt/react-side-bar.svg" alt="npm"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/npm/l/react-side-bar.svg" alt="npm"></a></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>You can install <code>react-side-bar</code> executing this command:</p>
+
+<pre><code>npm install --save react-side-bar
+</code></pre>
+
+<p>when the process ends, you are ready to import <code>react-side-bar</code> in your project.</p>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>To use <code>react-side-bar</code> you have to import the component in your project:</p>
+
+<pre><code>import Sidebar from 'react-side-bar';
+</code></pre>
+
+<p>Once imported you have to create an object with the props to pass to the component.
+The property <code>bar</code> is mandatory because it is a <strong>React</strong> node with the <code>Sidebar</code>.
+This property have to be a <strong>React</strong> element, it will be our <code>sidebar</code>.</p>
+
+<pre><code>const sidebarProps = {
+    bar: (&lt;div&gt;Amazing Sidebar&lt;/div&gt;),
+    size: 200
+};
+</code></pre>
+
+<p>You can add more props to <code>react-side-bar</code>. You can see it in <a href="#properties">Properties</a>.</p>
+
+<h3>
+<a id="add-a-button-to-open-the-sidebar" class="anchor" href="#add-a-button-to-open-the-sidebar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a button to open the sidebar</h3>
+
+<p>If you want add a button to open/close <code>react-side-bar</code> (<em>hamburguer menu</em> for example) is needed a reference in the state of your component to expose if <code>react-side-bar</code> is open or not</p>
+
+<pre><code>constructor(props) {
+    this.state = {
+        opened: false (or true)
+    }
+}
+</code></pre>
+
+<p>in this way, there are two properties mandatory</p>
+
+<ul>
+<li>
+<strong>onOpen</strong> (function)</li>
+<li>
+<strong>onClose</strong> (function)</li>
+</ul>
+
+<p>The function of this properties is keep updated the property <em>opened</em> of component. For this, must call to <code>setState</code> to change the value of the property. For exmaple:</p>
+
+<p>Close:</p>
+
+<pre><code>onClose: () =&gt; {
+    setState({ opened: false })
+}
+</code></pre>
+
+<p>Open:</p>
+
+<pre><code>onOpen: () =&gt; {
+    setState({ opened: true })
+}
+</code></pre>
+
+<p>Moreover you can use this functions to add extra functionality for your application such triggers when open or close <code>react-side-bar</code>.</p>
+
+<p>The object of properties with  <em>onClose</em>, <em>onOpen</em> should be like that:</p>
+
+<pre><code>const sidebarProps = {
+    bar: (&lt;div&gt;Amazing Sidebar&lt;/div&gt;),
+    opened: this.state.opened,
+    onClose: () =&gt; {
+        setState({ opened: false })
+    },
+    onOpen: () =&gt; {
+        setState({ opened: true })
+    },
+    size: 200
+};
+</code></pre>
+
+<p>Once you have the object with properties, you can init the component <code>Sidebar</code>.</p>
+
+<pre><code>&lt;Sidebar {... sidebarProps} /&gt;
+</code></pre>
+
+<p>or:</p>
+
+<pre><code>&lt;Sidebar
+    bar={(&lt;div&gt;Amazing Sidebar&lt;/div&gt;)}
+    size={300} /&gt;
+</code></pre>
+
+<p>Output:</p>
+
+<p><img src="doc/images/screenshot1.png" width="200">
+<img src="doc/images/screenshot2.png" width="200"></p>
+
+<p>To add content for the application you just have to add a children inside <code>Sidebar</code>.</p>
+
+<pre><code>&lt;Sidebar {... sidebarProps}&gt;
+    &lt;div className='topBar'&gt;SIDEBAR&lt;/div&gt;
+    &lt;div className='main'&gt;Main&lt;/div&gt;
+&lt;/SideBar&gt;
+</code></pre>
+
+<p>With style and some improvements, it could be like that:</p>
+
+<p><img src="doc/images/screenshot3.png" width="200">
+<img src="doc/images/screenshot4.png" width="200"></p>
+
+<p>With <code>react-side-bar</code> you can pass the topBar component (passed as children in example above) as a property to change the effect when opening.</p>
+
+<pre><code>const sidebarProps = {
+    bar: (&lt;div&gt;Amazing Sidebar&lt;/div&gt;),
+    topBar: (&lt;div className='topBar'&gt;SIDEBAR&lt;/div&gt;),
+    size: 300
+};
+
+&lt;Sidebar {... sidebarProps}&gt;
+    &lt;div className='main'&gt;Main&lt;/div&gt;
+&lt;/SideBar&gt;
+</code></pre>
+
+<p><img src="doc/images/screenshot5.png" width="200">
+<img src="doc/images/screenshot6.png" width="200"></p>
+
+<h2>
+<a id="properties" class="anchor" href="#properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Properties</h2>
+
+<h4>
+<a id="duration-number" class="anchor" href="#duration-number" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>duration (<em>number</em>)</h4>
+
+<blockquote>
+<p>Default: <em>150</em></p>
+</blockquote>
+
+<p>This is the time it takes to open or close de sidebar.</p>
+
+<h4>
+<a id="fx-string" class="anchor" href="#fx-string" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>fx (<em>string</em>)</h4>
+
+<blockquote>
+<p>Default: <em>cubic-bezier(0, 1, 0.85, 1)</em></p>
+</blockquote>
+
+<p>This is the effect of the sidebar when opening, o can test the default effect in <a href="http://cubic-bezier.com/#0,1,.85,1">http://cubic-bezier.com</a> or perhaps add another different effect. <a href="https://developer.mozilla.org/es/docs/Web/CSS/transition-timing-function">Effects</a></p>
+
+<h4>
+<a id="mode-string-sidebarbehind--sidebarover--sidebarpush" class="anchor" href="#mode-string-sidebarbehind--sidebarover--sidebarpush" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>mode (<em>string</em>: <strong>Sidebar.BEHIND</strong> | <strong>Sidebar.OVER</strong> | <strong>Sidebar.PUSH</strong>)</h4>
+
+<blockquote>
+<p>Default: <em>Sidebar.OVER</em></p>
+</blockquote>
+
+<p>This property allow change the opening mode of the sidebar, you can choose from three different:</p>
+
+<ul>
+<li><strong>Sidebar.BEHIND</strong></li>
+</ul>
+
+<p><img src="doc/images/behind.gif" width="200"></p>
+
+<ul>
+<li><strong>Sidebar.OVER</strong></li>
+</ul>
+
+<p><img src="doc/images/over.gif" width="200"></p>
+
+<ul>
+<li><strong>Sidebar.PUSH</strong></li>
+</ul>
+
+<p><img src="doc/images/push.gif" width="200"></p>
+
+<h4>
+<a id="opened-boolean-true--false" class="anchor" href="#opened-boolean-true--false" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>opened (<em>boolean</em>: <strong>true</strong> | <strong>false</strong>)</h4>
+
+<blockquote>
+<p>Default: <em>false</em></p>
+</blockquote>
+
+<p>This property show or hidden the sidebar.</p>
+
+<h4>
+<a id="side-string-sidebarleft--sidebarright" class="anchor" href="#side-string-sidebarleft--sidebarright" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>side (<em>string</em>: <strong>Sidebar.LEFT</strong> | <strong>Sidebar.RIGHT</strong>)</h4>
+
+<blockquote>
+<p>Default: <em>Sidebar.LEFT</em></p>
+</blockquote>
+
+<p>This property allow to change the side of the opening of the sidebar.</p>
+
+<h4>
+<a id="size-number" class="anchor" href="#size-number" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>size (<em>number</em>)</h4>
+
+<blockquote>
+<p>Default: <em>256</em></p>
+</blockquote>
+
+<p>This property allow change the width of the sidebar.</p>
+
+<h4>
+<a id="tolerance-number" class="anchor" href="#tolerance-number" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>tolerance (<em>number</em>)</h4>
+
+<blockquote>
+<p>Default: <em>70</em></p>
+</blockquote>
+
+<p>This property set the tolerance to calculate the sensibility of the automatic opening of the sidebar.</p>
+
+<h4>
+<a id="touch-boolean-true--false" class="anchor" href="#touch-boolean-true--false" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>touch (<em>boolean</em>: <strong>true</strong> | <strong>false</strong>)</h4>
+
+<blockquote>
+<p>Default: <em>true</em></p>
+</blockquote>
+
+<p>This property allow enable or disable touch events. If its value is <em>false</em> you have to add another alternative method to open as a <em>hamburguer menu</em>.</p>
+
+<h4>
+<a id="touchsize-number" class="anchor" href="#touchsize-number" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>touchSize (<em>number</em>)</h4>
+
+<blockquote>
+<p>Default: <em>80</em></p>
+</blockquote>
+
+<p>With this property you can set the size of the touchable zone to start to drag the sidebar. If its value is 0 means that you can drag the sidebar everywhere.</p>
+
+<h4>
+<a id="veilstyle-object" class="anchor" href="#veilstyle-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>veilStyle (<em>object</em>)</h4>
+
+<blockquote>
+<p>Default: <em>{}</em></p>
+</blockquote>
+
+<p>You can define the final style of the veil over the content of applicatio when the sidebar is open. While the sidebar is opening, this style have a opacity depending of the percent opening.</p>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
+
+<p>You can see the example in <a href="https://mschez.github.io/react-side-bar/example">Ejemplo</a>.</p>
+
+<p>Or download (or clone) the project and click in <code>index.html</code> inside <code>example</code> folder.</p>
+
+<h2>
+<a id="contribution" class="anchor" href="#contribution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contribution</h2>
+
+<p>If you want to do your own changes, share with community and contribute with the project:</p>
+
+<pre><code>git clone https://github.com/mschez/react-side-bar.git
+cd react-side-bar
+npm install
+npm run dev
+</code></pre>
+
+<p>Now you can see the example in <a href="http://localhost:3000">http://localhost:3000</a></p>
+
+<p>Don't forget enable the device in mode in your browser to test touch actions.</p>
+
+<h2>
+<a id="important" class="anchor" href="#important" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Important</h2>
+
+<p>If you like this project, don't forget buy me a beer. ¡Thank you!</p>
+
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=mschezes%40gmail%2ecom&amp;lc=ES&amp;item_name=Miguel%20S%c3%a1nchez&amp;item_number=github&amp;no_note=0&amp;currency_code=EUR&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHostedGuest"><img src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donate_SM.gif" alt="Donate"></a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mschez/react-side-bar">React-side-bar</a> is maintained by <a href="https://github.com/mschez">mschez</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
